@@ -39,7 +39,7 @@ const TrackOrder = () => {
     );
   }
 
-  // 🔥 FIXED LOGIC
+  //  FIXED LOGIC
   const isPaid = order.status !== "unpaid";
 
   return (
@@ -63,7 +63,7 @@ const TrackOrder = () => {
             <b>Quantity:</b> {order.quantity}
           </p>
           <p>
-            <b>Total Price:</b> ৳{order.totalPrice}
+            <b>Total Price:</b> ${order.totalPrice}
           </p>
           <p>
             <b>Payment:</b>{" "}
