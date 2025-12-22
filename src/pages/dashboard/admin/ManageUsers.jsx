@@ -61,7 +61,7 @@ const ManageUsers = () => {
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-6">Manage Users</h2>
 
-      <div className="overflow-x-auto bg-base-100 shadow-xl rounded-xl">
+      <div className="overflow-x-auto p-5 bg-base-100 shadow-xl rounded-xl">
         <table className="table table-zebra w-full">
           <thead className="bg-base-200">
             <tr>

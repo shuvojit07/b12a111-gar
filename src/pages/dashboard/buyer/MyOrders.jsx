@@ -22,7 +22,7 @@ const MyOrders = () => {
 
   if (loading) {
     return (
-      <p className="text-center mt-20 text-lg">
+      <p className="text-center mt-20 text-lg text-gray-500">
         Loading your orders...
       </p>
     );
@@ -37,62 +37,87 @@ const MyOrders = () => {
   }
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6">
-        My Orders
-      </h2>
+    <section className="bg-gradient-to-b from-white to-slate-50 py-12">
+      <div className="max-w-6xl mx-auto px-6">
+        <h2 className="text-3xl font-bold mb-10 text-slate-900">
+          My Orders
+        </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {orders.map((order) => (
-          <div
-            key={order._id}
-            className="bg-base-100 shadow-xl rounded-xl p-6"
-          >
-            <h3 className="text-lg font-semibold">
-              {order.productName}
-            </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {orders.map((order) => (
+            <div
+              key={order._id}
+              className="bg-white rounded-2xl shadow-md hover:shadow-lg transition p-6 flex flex-col"
+            >
+              <div>
+                <h3 className="text-lg font-semibold text-slate-900">
+                  {order.productName}
+                </h3>
 
-            <p className="text-sm text-gray-500 mt-1">
-              Order ID: {order._id}
-            </p>
+                <p className="text-xs text-slate-500 mt-1">
+                  Order ID: {order._id}
+                </p>
+              </div>
 
-            <div className="mt-3 space-y-1">
-              <p>
-                <b>Quantity:</b> {order.quantity}
-              </p>
+              <div className="mt-4 space-y-2 text-slate-700">
+                <p>
+                  <span className="font-semibold">
+                    Quantity:
+                  </span>{" "}
+                  {order.quantity}
+                </p>
 
-              <p>
-                <b>Total:</b> ${order.totalPrice}
-              </p>
+                <p>
+                  <span className="font-semibold">
+                    Total Price:
+                  </span>{" "}
+                  ${order.totalPrice}
+                </p>
 
-              <p>
-                <b>Status:</b>{" "}
-                <span
-                  className={`badge ${
-                    order.status === "paid"
-                      ? "badge-success"
-                      : order.status === "pending"
-                      ? "badge-warning"
-                      : "badge-info"
-                  }`}
+                <p>
+                  <span className="font-semibold">
+                    Status:
+                  </span>{" "}
+                  <span
+                    className={`
+                      inline-block px-3 py-1 rounded-full text-xs font-semibold
+                      ${
+                        order.status === "paid"
+                          ? "bg-green-100 text-green-700"
+                          : order.status === "pending"
+                          ? "bg-yellow-100 text-yellow-700"
+                          : "bg-blue-100 text-blue-700"
+                      }
+                    `}
+                  >
+                    {order.status}
+                  </span>
+                </p>
+              </div>
+
+              <div className="mt-auto pt-5 flex justify-end">
+                <Link
+                  to={`/dashboard/track-order/${order._id}`}
+                  className="
+                    px-4 py-2
+                    rounded-lg
+                    border border-purple-600
+                    text-purple-600
+                    font-semibold
+                    text-sm
+                    hover:bg-purple-600
+                    hover:text-white
+                    transition
+                  "
                 >
-                  {order.status}
-                </span>
-              </p>
+                  Track Order →
+                </Link>
+              </div>
             </div>
-
-            <div className="mt-4 flex justify-end">
-              <Link
-                to={`/dashboard/track-order/${order._id}`}
-                className="btn btn-sm btn-outline btn-primary"
-              >
-                Track Order
-              </Link>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -98,7 +98,7 @@ const AddProduct = () => {
         {/* Price & Quantity */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="label">Price (৳)</label>
+            <label className="label">Price ($)</label>
             <input
               name="price"
               type="number"

@@ -5,7 +5,6 @@ const ApprovedOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // fetch approved orders
   useEffect(() => {
     fetch("http://localhost:5000/api/v1/orders?status=approved")
       .then((res) => res.json())
@@ -18,7 +17,7 @@ const ApprovedOrders = () => {
 
   if (loading) {
     return (
-      <p className="text-center mt-20">
+      <p className="text-center mt-20 text-gray-500">
         Loading approved orders...
       </p>
     );
@@ -35,31 +34,52 @@ const ApprovedOrders = () => {
           No approved orders found.
         </p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="table table-zebra w-full">
-            <thead>
+        <div className="overflow-x-auto bg-white rounded-xl shadow">
+          <table className="w-full text-sm">
+            <thead className="bg-slate-100">
               <tr>
-                <th>#</th>
-                <th>User</th>
-                <th>Product</th>
-                <th>Qty</th>
-                <th>Total</th>
-                <th>Tracking</th>
+                <th className="p-3 text-left">#</th>
+                <th className="p-3 text-left">User</th>
+                <th className="p-3 text-left">Product</th>
+                <th className="p-3 text-left">Qty</th>
+                <th className="p-3 text-left">Total</th>
+                <th className="p-3 text-left">Tracking</th>
               </tr>
             </thead>
 
             <tbody>
               {orders.map((order, index) => (
-                <tr key={order._id}>
-                  <td>{index + 1}</td>
-                  <td>{order.email}</td>
-                  <td>{order.productName}</td>
-                  <td>{order.quantity}</td>
-                  <td>${order.totalPrice}</td>
-                  <td>
+                <tr
+                  key={order._id}
+                  className="border-t hover:bg-slate-50"
+                >
+                  <td className="p-3">{index + 1}</td>
+
+                  <td className="p-3">
+                    {order.email ||
+                     order.userEmail ||
+                     order.buyerEmail ||
+                     order.user?.email ||
+                     "N/A"}
+                  </td>
+
+                  <td className="p-3">{order.productName}</td>
+                  <td className="p-3">{order.quantity}</td>
+                  <td className="p-3">${order.totalPrice}</td>
+
+                  <td className="p-3">
                     <Link
                       to={`/dashboard/add-tracking/${order._id}`}
-                      className="btn btn-xs btn-primary"
+                      className="
+                        inline-block
+                        px-3 py-1.5
+                        rounded-md
+                        text-sm
+                        bg-purple-600
+                        text-white
+                        hover:bg-purple-700
+                        transition
+                      "
                     >
                       Add / Update
                     </Link>
@@ -75,6 +95,3 @@ const ApprovedOrders = () => {
 };
 
 export default ApprovedOrders;
-
-
-

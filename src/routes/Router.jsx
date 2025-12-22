@@ -9,7 +9,7 @@ import Home from "../pages/home/Home";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import NotFound from "../pages/NotFound";
-import Contact  from "../pages/contruct/Contact";
+import Contact from "../pages/contruct/Contact";
 import About from "../pages/contruct/About";
 
 /* ===== Products ===== */
@@ -24,6 +24,7 @@ import Profile from "../pages/dashboard/Profile";
 import ManageUsers from "../pages/dashboard/admin/ManageUsers";
 import AllOrders from "../pages/dashboard/admin/AllOrders";
 import AdminAllProducts from "../pages/dashboard/admin/AllProducts";
+import UpdateProductAdmin from "../pages/dashboard/admin/UpdateProductAdmin";
 
 /* ===== Manager ===== */
 import AddProduct from "../pages/dashboard/manager/AddProduct";
@@ -31,6 +32,7 @@ import ManageProducts from "../pages/dashboard/manager/ManageProducts";
 import PendingOrders from "../pages/dashboard/manager/PendingOrders";
 import ApprovedOrders from "../pages/dashboard/manager/ApprovedOrders";
 import AddTracking from "../pages/dashboard/manager/AddTracking";
+import UpdateProduct from "../pages/dashboard/manager/UpdateProduct";
 
 /* ===== Buyer ===== */
 import MyOrders from "../pages/dashboard/buyer/MyOrders";
@@ -113,6 +115,14 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
+      {
+        path: "update-product/:id",
+        element: (
+          <AdminRoute>
+            <UpdateProductAdmin />
+          </AdminRoute>
+        ),
+      },
 
       /* MANAGER */
       {
@@ -152,6 +162,14 @@ const router = createBrowserRouter([
         element: (
           <ManagerRoute>
             <AddTracking />
+          </ManagerRoute>
+        ),
+      },
+      {
+        path: "update-product/:id",
+        element: (
+          <ManagerRoute>
+            <UpdateProduct />
           </ManagerRoute>
         ),
       },

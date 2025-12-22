@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
@@ -19,21 +21,16 @@ const AllProducts = () => {
   // 🔹 toggle show on home
   const toggleShowHome = async (id, current) => {
     try {
-      const res = await fetch(
-        `http://localhost:5000/api/v1/products/${id}`,
-        {
-          method: "PATCH",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ showOnHome: !current }),
-        }
-      );
+      const res = await fetch(`http://localhost:5000/api/v1/products/${id}`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ showOnHome: !current }),
+      });
 
       if (!res.ok) throw new Error();
 
       setProducts((prev) =>
-        prev.map((p) =>
-          p._id === id ? { ...p, showOnHome: !current } : p
-        )
+        prev.map((p) => (p._id === id ? { ...p, showOnHome: !current } : p))
       );
 
       toast.success("Home page visibility updated");
@@ -50,19 +47,14 @@ const AllProducts = () => {
     if (!confirm) return;
 
     try {
-      const res = await fetch(
-        `http://localhost:5000/api/v1/products/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const res = await fetch(`http://localhost:5000/api/v1/products/${id}`, {
+        method: "DELETE",
+      });
 
       if (!res.ok) throw new Error();
 
       toast.success("Product deleted");
-      setProducts((prev) =>
-        prev.filter((p) => p._id !== id)
-      );
+      setProducts((prev) => prev.filter((p) => p._id !== id));
     } catch {
       toast.error("Delete failed");
     }
@@ -70,88 +62,108 @@ const AllProducts = () => {
 
   if (loading) {
     return (
-      <p className="text-center mt-20">
-        Loading products...
-      </p>
+      <p className="text-center mt-20 text-gray-500">Loading products...</p>
     );
   }
 
   return (
     <div className="px-4 py-6">
-      <h2 className="text-2xl font-bold mb-6">
-        All Products (Admin)
-      </h2>
+      <h2 className="text-2xl font-bold mb-6">All Products (Admin)</h2>
 
-      <div className="overflow-x-auto">
-        <table className="table table-zebra w-full">
-          <thead>
+      <div className="overflow-x-auto bg-white rounded-xl shadow">
+        <table className="w-full text-sm">
+          <thead className="bg-slate-100 text-left">
             <tr>
-              <th>#</th>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Category</th>
-              <th>Created By</th>
-              <th>Show on Home</th>
-              <th>Actions</th>
+              <th className="p-3">#</th>
+              <th className="p-3">Image</th>
+              <th className="p-3">Name</th>
+              <th className="p-3">Price</th>
+              <th className="p-3">Category</th>
+              <th className="p-3">Created By</th>
+              <th className="p-3">Show on Home</th>
+              <th className="p-3">Actions</th>
             </tr>
           </thead>
 
           <tbody>
             {products.map((product, index) => (
-              <tr key={product._id}>
-                <td>{index + 1}</td>
+              <tr key={product._id} className="border-t hover:bg-slate-50">
+                <td className="p-3">{index + 1}</td>
 
-                <td>
+                <td className="p-3">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-12 h-12 object-cover rounded"
+                    className="w-12 h-12 object-cover rounded-md"
                     onError={(e) =>
-                      (e.target.src =
-                        "https://placehold.co/100x100")
+                      (e.target.src = "https://placehold.co/100x100")
                     }
                   />
                 </td>
 
-                <td>{product.name}</td>
-                <td>${product.price}</td>
-                <td>{product.category}</td>
-                <td>{product.createdBy || "Admin"}</td>
+                <td className="p-3 font-medium">{product.name}</td>
+
+                <td className="p-3">৳{product.price}</td>
+
+                <td className="p-3">{product.category}</td>
+
+                <td className="p-3 text-sm text-slate-600">
+                  {product.createdBy || "Admin"}
+                </td>
 
                 {/* Show on Home */}
-                <td>
-                  <input
-                    type="checkbox"
-                    checked={product.showOnHome || false}
-                    onChange={() =>
-                      toggleShowHome(
-                        product._id,
-                        product.showOnHome
-                      )
+                <td className="p-3">
+                  <button
+                    onClick={() =>
+                      toggleShowHome(product._id, product.showOnHome)
                     }
-                    className="toggle toggle-primary"
-                  />
+                    className={`
+                      relative inline-flex h-6 w-11 items-center
+                      rounded-full transition
+                      ${product.showOnHome ? "bg-purple-600" : "bg-slate-300"}
+                    `}
+                  >
+                    <span
+                      className={`
+                        inline-block h-4 w-4 transform rounded-full bg-white transition
+                        ${
+                          product.showOnHome ? "translate-x-6" : "translate-x-1"
+                        }
+                      `}
+                    />
+                  </button>
                 </td>
 
                 {/* Actions */}
-                <td className="space-x-2">
-                  <button
-                    className="btn btn-xs btn-info"
-                    onClick={() =>
-                      toast.info(
-                        "Edit page can be added if needed"
-                      )
-                    }
+                <td className="p-3 space-x-2">
+                  <Link
+                    to={`/dashboard/update-product/${product._id}`}
+                    className="
+    inline-block
+    px-3 py-1.5
+    rounded-md
+    text-sm font-semibold
+    bg-blue-600
+    text-white
+    hover:bg-blue-700
+    transition
+  "
                   >
                     Update
-                  </button>
+                  </Link>
 
                   <button
-                    className="btn btn-xs btn-error"
-                    onClick={() =>
-                      handleDelete(product._id)
-                    }
+                    onClick={() => handleDelete(product._id)}
+                    className="
+                      inline-block
+                      px-3 py-1.5
+                      rounded-md
+                      text-sm font-semibold
+                      bg-red-500
+                      text-white
+                      hover:bg-red-600
+                      transition
+                    "
                   >
                     Delete
                   </button>

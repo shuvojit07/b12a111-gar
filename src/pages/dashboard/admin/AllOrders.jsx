@@ -43,7 +43,7 @@ const AllOrders = () => {
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className="select select-bordered w-full md:w-48 mt-3 md:mt-0"
+          className="select p-5 select-bordered w-full md:w-48 mt-3 md:mt-0"
         >
           <option value="">All Status</option>
           <option value="pending">Pending</option>
@@ -54,7 +54,7 @@ const AllOrders = () => {
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto bg-base-100 shadow-xl rounded-xl">
+      <div className="overflow-x-auto p-5 bg-base-100 shadow-xl rounded-xl">
         <table className="table table-zebra w-full">
           <thead className="bg-base-200">
             <tr>

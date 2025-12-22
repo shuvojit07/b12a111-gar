@@ -70,14 +70,14 @@ const PendingOrders = () => {
 
   if (loading) {
     return (
-      <p className="text-center mt-20">
+      <p className="text-center mt-20 text-gray-500">
         Loading pending orders...
       </p>
     );
   }
 
   return (
-    <div className="p-6">
+    <div className="px-4 py-6">
       <h2 className="text-2xl font-bold mb-6">
         Pending Orders
       </h2>
@@ -87,33 +87,49 @@ const PendingOrders = () => {
           No pending orders found.
         </p>
       ) : (
-        <div className="overflow-x-auto p-5 bg-base-100 shadow-xl rounded-xl">
-          <table className="table table-zebra w-full">
-            <thead className="bg-base-200 text-left">
+        <div className="overflow-x-auto bg-white rounded-xl shadow">
+          <table className="w-full text-sm">
+            <thead className="bg-slate-100">
               <tr>
-                <th>#</th>
-                <th>User</th>
-                <th>Product</th>
-                <th>Qty</th>
-                <th>Total</th>
-                <th className="text-center">Actions</th>
+                <th className="p-3 text-left">#</th>
+                <th className="p-3 text-left">User</th>
+                <th className="p-3 text-left">Product</th>
+                <th className="p-3 text-left">Qty</th>
+                <th className="p-3 text-left">Total</th>
+                <th className="p-3 text-center">Actions</th>
               </tr>
             </thead>
 
             <tbody>
               {orders.map((order, index) => (
-                <tr key={order._id}>
-                  <td>{index + 1}</td>
-                  <td>{order.userEmail}</td>
-                  <td>{order.productName}</td>
-                  <td>{order.quantity}</td>
-                  <td>৳{order.totalPrice}</td>
-                  <td className="text-center space-x-2">
+                <tr
+                  key={order._id}
+                  className="border-t hover:bg-slate-50"
+                >
+                  <td className="p-3">{index + 1}</td>
+                  <td className="p-3">
+                    {order.userEmail || order.email || "N/A"}
+                  </td>
+                  <td className="p-3">{order.productName}</td>
+                  <td className="p-3">{order.quantity}</td>
+                  <td className="p-3">${order.totalPrice}</td>
+
+                  <td className="p-3 text-center space-x-2">
                     <button
                       onClick={() =>
                         handleApprove(order._id)
                       }
-                      className="btn btn-xs btn-success"
+                      className="
+                        inline-block
+                        px-3 py-1.5
+                        rounded-md
+                        text-sm
+                        font-semibold
+                        bg-green-600
+                        text-white
+                        hover:bg-green-700
+                        transition
+                      "
                     >
                       Approve
                     </button>
@@ -122,14 +138,35 @@ const PendingOrders = () => {
                       onClick={() =>
                         handleReject(order._id)
                       }
-                      className="btn btn-xs btn-error"
+                      className="
+                        inline-block
+                        px-3 py-1.5
+                        rounded-md
+                        text-sm
+                        font-semibold
+                        bg-red-500
+                        text-white
+                        hover:bg-red-600
+                        transition
+                      "
                     >
                       Reject
                     </button>
 
                     <Link
                       to={`/dashboard/track-order/${order._id}`}
-                      className="btn btn-xs btn-outline"
+                      className="
+                        inline-block
+                        px-3 py-1.5
+                        rounded-md
+                        text-sm
+                        font-semibold
+                        border border-purple-600
+                        text-purple-700
+                        hover:bg-purple-600
+                        hover:text-white
+                        transition
+                      "
                     >
                       View
                     </Link>
