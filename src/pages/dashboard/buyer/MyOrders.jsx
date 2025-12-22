@@ -62,7 +62,7 @@ const MyOrders = () => {
               </p>
 
               <p>
-                <b>Total:</b> ৳{order.totalPrice}
+                <b>Total:</b> ${order.totalPrice}
               </p>
 
               <p>
