@@ -75,7 +75,7 @@ const PaymentPage = () => {
             <b>Quantity:</b> {order.quantity}
           </p>
           <p>
-            <b>Total Price:</b> ৳{order.totalPrice}
+            <b>Total Price:</b> ${order.totalPrice}
           </p>
         </div>
 

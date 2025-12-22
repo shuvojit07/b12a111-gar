@@ -20,7 +20,7 @@ const OrderForm = () => {
     notes: "",
   });
 
-  // 🔹 Load product
+  // Load product
   useEffect(() => {
     axios
       .get(`http://localhost:5000/api/v1/products/${id}`)
@@ -38,15 +38,15 @@ const OrderForm = () => {
     return <p className="text-center mt-20 text-lg">Loading product...</p>;
   }
 
-  // 🔹 Safe numbers
+  //  Safe numbers
   const price = Number(product.price);
   const min = Number(product.minOrder);
   const max = Number(product.quantity);
 
-  // 🔹 Always valid total
+  //  Always valid total
   const totalPrice = quantity * price;
 
-  // 🔹 Quantity handler (auto-fix invalid input)
+  //  Quantity handler (auto-fix invalid input)
   const handleQuantityChange = (e) => {
     let val = Number(e.target.value);
 
@@ -58,7 +58,7 @@ const OrderForm = () => {
     setQuantity(val);
   };
 
-  // 🔹 Proceed to payment
+  //  Proceed to payment
   const handleNext = async () => {
     if (quantity < min || quantity > max) {
       return toast.error("Invalid quantity");
