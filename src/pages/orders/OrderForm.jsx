@@ -23,7 +23,7 @@ const OrderForm = () => {
   // Load product
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/v1/products/${id}`)
+      .get(`https://garmentstracker.vercel.app/api/v1/products/${id}`)
       .then((res) => {
         const data = res.data;
         setProduct(data);
@@ -80,7 +80,7 @@ const OrderForm = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/v1/orders",
+        "https://garmentstracker.vercel.app/api/v1/orders",
         order
       );
 
@@ -145,7 +145,7 @@ const OrderForm = () => {
 
         <div className="flex justify-between">
           <span>Price</span>
-          <span>৳{product.price}</span>
+          <span>${product.price}</span>
         </div>
 
         <div className="flex justify-between items-center">
@@ -164,7 +164,7 @@ const OrderForm = () => {
 
         <div className="flex justify-between text-lg font-bold">
           <span>Total</span>
-          <span>৳{totalPrice}</span>
+          <span>${totalPrice}</span>
         </div>
 
         <button onClick={handleNext} className="btn btn-primary w-full mt-4">

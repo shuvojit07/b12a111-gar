@@ -15,7 +15,7 @@ const ManageUsers = () => {
   // 🔹 Fetch users
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/v1/users")
+      .get("https://garmentstracker.vercel.app/api/v1/users")
       .then((res) => {
         setUsers(res.data);
         setLoading(false);
@@ -37,7 +37,7 @@ const ManageUsers = () => {
   const handleUpdate = async () => {
     try {
       await axios.patch(
-        `http://localhost:5000/api/v1/users/${selectedUser.email}`,
+        `https://garmentstracker.vercel.app/api/v1/users/${selectedUser.email}`,
         {
           role,
           status,
@@ -157,7 +157,10 @@ const ManageUsers = () => {
           )}
 
           <div className="modal-action">
-            <button onClick={handleUpdate} className="btn btn-sm btn-outline mt-3">
+            <button
+              onClick={handleUpdate}
+              className="btn btn-sm btn-outline mt-3"
+            >
               Save Changes
             </button>
             <button

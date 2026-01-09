@@ -6,9 +6,12 @@ const PendingOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 🔹 fetch pending orders
+  //  track approve / reject status locally
+  const [actionMap, setActionMap] = useState({});
+
+  //  fetch pending orders
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/orders?status=pending")
+    fetch("https://garmentstracker.vercel.app/api/v1/orders?status=pending")
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);
@@ -21,7 +24,7 @@ const PendingOrders = () => {
   const handleApprove = async (id) => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/v1/orders/${id}`,
+        `https://garmentstracker.vercel.app/api/v1/orders/${id}`,
         {
           method: "PATCH",
           headers: { "content-type": "application/json" },
@@ -35,9 +38,12 @@ const PendingOrders = () => {
       if (!res.ok) throw new Error();
 
       toast.success("Order approved");
-      setOrders((prev) =>
-        prev.filter((order) => order._id !== id)
-      );
+
+      //  mark as approved (green)
+      setActionMap((prev) => ({
+        ...prev,
+        [id]: "approved",
+      }));
     } catch {
       toast.error("Failed to approve order");
     }
@@ -49,7 +55,7 @@ const PendingOrders = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/v1/orders/${id}`,
+        `https://garmentstracker.vercel.app/api/v1/orders/${id}`,
         {
           method: "PATCH",
           headers: { "content-type": "application/json" },
@@ -60,9 +66,12 @@ const PendingOrders = () => {
       if (!res.ok) throw new Error();
 
       toast.success("Order rejected");
-      setOrders((prev) =>
-        prev.filter((order) => order._id !== id)
-      );
+
+      // mark as rejected (red)
+      setActionMap((prev) => ({
+        ...prev,
+        [id]: "rejected",
+      }));
     } catch {
       toast.error("Failed to reject order");
     }
@@ -78,14 +87,12 @@ const PendingOrders = () => {
 
   return (
     <div className="px-4 py-6">
-      <h2 className="text-2xl font-bold mb-6">
+      <h2 className="text-xl sm:text-2xl font-bold mb-6">
         Pending Orders
       </h2>
 
       {orders.length === 0 ? (
-        <p className="text-gray-500">
-          No pending orders found.
-        </p>
+        <p className="text-gray-500">No pending orders found.</p>
       ) : (
         <div className="overflow-x-auto bg-white rounded-xl shadow">
           <table className="w-full text-sm">
@@ -107,66 +114,44 @@ const PendingOrders = () => {
                   className="border-t hover:bg-slate-50"
                 >
                   <td className="p-3">{index + 1}</td>
-                  <td className="p-3">
+
+                  {/*  NAME COLOR */}
+                  <td
+                    className={`p-3 font-semibold ${
+                      actionMap[order._id] === "approved"
+                        ? "text-green-600"
+                        : actionMap[order._id] === "rejected"
+                        ? "text-red-600"
+                        : ""
+                    }`}
+                  >
                     {order.userEmail || order.email || "N/A"}
                   </td>
+
                   <td className="p-3">{order.productName}</td>
                   <td className="p-3">{order.quantity}</td>
                   <td className="p-3">${order.totalPrice}</td>
 
                   <td className="p-3 text-center space-x-2">
                     <button
-                      onClick={() =>
-                        handleApprove(order._id)
-                      }
-                      className="
-                        inline-block
-                        px-3 py-1.5
-                        rounded-md
-                        text-sm
-                        font-semibold
-                        bg-green-600
-                        text-white
-                        hover:bg-green-700
-                        transition
-                      "
+                      onClick={() => handleApprove(order._id)}
+                      disabled={actionMap[order._id]}
+                      className="px-3 py-1.5 rounded-md text-sm font-semibold bg-green-600 text-white hover:bg-green-700 disabled:opacity-50"
                     >
                       Approve
                     </button>
 
                     <button
-                      onClick={() =>
-                        handleReject(order._id)
-                      }
-                      className="
-                        inline-block
-                        px-3 py-1.5
-                        rounded-md
-                        text-sm
-                        font-semibold
-                        bg-red-500
-                        text-white
-                        hover:bg-red-600
-                        transition
-                      "
+                      onClick={() => handleReject(order._id)}
+                      disabled={actionMap[order._id]}
+                      className="px-3 py-1.5 rounded-md text-sm font-semibold bg-red-500 text-white hover:bg-red-600 disabled:opacity-50"
                     >
                       Reject
                     </button>
 
                     <Link
                       to={`/dashboard/track-order/${order._id}`}
-                      className="
-                        inline-block
-                        px-3 py-1.5
-                        rounded-md
-                        text-sm
-                        font-semibold
-                        border border-purple-600
-                        text-purple-700
-                        hover:bg-purple-600
-                        hover:text-white
-                        transition
-                      "
+                      className="px-3 py-1.5 rounded-md text-sm font-semibold border border-purple-600 text-purple-700 hover:bg-purple-600 hover:text-white transition"
                     >
                       View
                     </Link>

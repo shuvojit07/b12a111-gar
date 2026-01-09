@@ -6,7 +6,7 @@ const OurProducts = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/products")
+    fetch("https://garmentstracker.vercel.app/api/v1/products")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data.slice(0, 6));
@@ -17,7 +17,6 @@ const OurProducts = () => {
   return (
     <section className="py-24 bg-gradient-to-b from-white to-slate-50">
       <div className="max-w-7xl mx-auto px-6">
-
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900">
@@ -78,9 +77,7 @@ const OurProducts = () => {
                     {p.name}
                   </h3>
 
-                  <p className="text-slate-500 mb-6 font-medium">
-                    ${p.price}
-                  </p>
+                  <p className="text-slate-500 mb-6 font-medium">${p.price}</p>
 
                   {/* CTA */}
                   <div className="mt-auto">
@@ -107,7 +104,6 @@ const OurProducts = () => {
             ))}
           </div>
         )}
-
       </div>
     </section>
   );

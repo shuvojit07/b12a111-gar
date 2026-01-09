@@ -6,7 +6,7 @@ const AllProducts = () => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/products")
+    fetch("https://garmentstracker.vercel.app/api/v1/products")
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error("Product fetch error:", err));
@@ -33,7 +33,10 @@ const AllProducts = () => {
 
       <div className="grid md:grid-cols-3 gap-6">
         {filteredProducts.map((product) => (
-          <div key={product._id} className="border rounded-lg p-4 shadow hover:shadow-lg transition-shadow duration-300">
+          <div
+            key={product._id}
+            className="border rounded-lg p-4 shadow hover:shadow-lg transition-shadow duration-300"
+          >
             <img
               src={product.image}
               alt={product.name}

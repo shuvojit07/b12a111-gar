@@ -11,7 +11,7 @@ const UpdateProductAdmin = () => {
 
   // 🔹 fetch product by id
   useEffect(() => {
-    fetch(`http://localhost:5000/api/v1/products/${id}`)
+    fetch(`https://garmentstracker.vercel.app/api/v1/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);
@@ -40,7 +40,7 @@ const UpdateProductAdmin = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/v1/products/${id}`,
+        `https://garmentstracker.vercel.app/api/v1/products/${id}`,
         {
           method: "PATCH",
           headers: { "content-type": "application/json" },
@@ -59,17 +59,13 @@ const UpdateProductAdmin = () => {
 
   if (loading || !product) {
     return (
-      <p className="text-center mt-20 text-gray-500">
-        Loading product...
-      </p>
+      <p className="text-center mt-20 text-gray-500">Loading product...</p>
     );
   }
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-10">
-      <h2 className="text-2xl font-bold mb-8">
-        Update Product (Admin)
-      </h2>
+      <h2 className="text-2xl font-bold mb-8">Update Product (Admin)</h2>
 
       <form
         onSubmit={handleSubmit}
@@ -77,9 +73,7 @@ const UpdateProductAdmin = () => {
       >
         {/* Name */}
         <div>
-          <label className="block mb-1 font-medium">
-            Product Name
-          </label>
+          <label className="block mb-1 font-medium">Product Name</label>
           <input
             type="text"
             name="name"
@@ -91,9 +85,7 @@ const UpdateProductAdmin = () => {
 
         {/* Description */}
         <div>
-          <label className="block mb-1 font-medium">
-            Description
-          </label>
+          <label className="block mb-1 font-medium">Description</label>
           <textarea
             name="description"
             defaultValue={product.description}
@@ -106,9 +98,7 @@ const UpdateProductAdmin = () => {
         {/* Grid */}
         <div className="grid md:grid-cols-2 gap-6">
           <div>
-            <label className="block mb-1 font-medium">
-              Category
-            </label>
+            <label className="block mb-1 font-medium">Category</label>
             <input
               type="text"
               name="category"
@@ -119,9 +109,7 @@ const UpdateProductAdmin = () => {
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">
-              Price
-            </label>
+            <label className="block mb-1 font-medium">Price</label>
             <input
               type="number"
               name="price"
@@ -132,9 +120,7 @@ const UpdateProductAdmin = () => {
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">
-              Available Quantity
-            </label>
+            <label className="block mb-1 font-medium">Available Quantity</label>
             <input
               type="number"
               name="quantity"
@@ -145,9 +131,7 @@ const UpdateProductAdmin = () => {
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">
-              Minimum Order
-            </label>
+            <label className="block mb-1 font-medium">Minimum Order</label>
             <input
               type="number"
               name="minOrder"
@@ -160,9 +144,7 @@ const UpdateProductAdmin = () => {
 
         {/* Image */}
         <div>
-          <label className="block mb-1 font-medium">
-            Image URL
-          </label>
+          <label className="block mb-1 font-medium">Image URL</label>
           <input
             type="text"
             name="image"
@@ -174,9 +156,7 @@ const UpdateProductAdmin = () => {
 
         {/* Payment */}
         <div>
-          <label className="block mb-1 font-medium">
-            Payment Mode
-          </label>
+          <label className="block mb-1 font-medium">Payment Mode</label>
           <select
             name="paymentType"
             defaultValue={product.paymentType}

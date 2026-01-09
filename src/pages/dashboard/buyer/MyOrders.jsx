@@ -12,7 +12,9 @@ const MyOrders = () => {
     if (!user?.email) return;
 
     axios
-      .get(`http://localhost:5000/api/v1/orders?email=${user.email}`)
+      .get(
+        `https://garmentstracker.vercel.app/api/v1/orders?email=${user.email}`
+      )
       .then((res) => {
         setOrders(res.data);
         setLoading(false);
@@ -39,9 +41,7 @@ const MyOrders = () => {
   return (
     <section className="bg-gradient-to-b from-white to-slate-50 py-12">
       <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-3xl font-bold mb-10 text-slate-900">
-          My Orders
-        </h2>
+        <h2 className="text-3xl font-bold mb-10 text-slate-900">My Orders</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {orders.map((order) => (
@@ -61,23 +61,17 @@ const MyOrders = () => {
 
               <div className="mt-4 space-y-2 text-slate-700">
                 <p>
-                  <span className="font-semibold">
-                    Quantity:
-                  </span>{" "}
+                  <span className="font-semibold">Quantity:</span>{" "}
                   {order.quantity}
                 </p>
 
                 <p>
-                  <span className="font-semibold">
-                    Total Price:
-                  </span>{" "}
-                  ${order.totalPrice}
+                  <span className="font-semibold">Total Price:</span> $
+                  {order.totalPrice}
                 </p>
 
                 <p>
-                  <span className="font-semibold">
-                    Status:
-                  </span>{" "}
+                  <span className="font-semibold">Status:</span>{" "}
                   <span
                     className={`
                       inline-block px-3 py-1 rounded-full text-xs font-semibold

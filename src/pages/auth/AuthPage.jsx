@@ -50,7 +50,7 @@ const AuthPage = () => {
     try {
       await createUser(email, password);
 
-      await axios.post("http://localhost:5000/api/users", {
+      await axios.post("https://garmentstracker.vercel.app/api/users", {
         name,
         email,
         photoURL,
@@ -69,7 +69,7 @@ const AuthPage = () => {
   const handleGoogle = async () => {
     try {
       const result = await googleLogin();
-      await axios.post("http://localhost:5000/api/users", {
+      await axios.post("https://garmentstracker.vercel.app/api/users", {
         name: result.user.displayName,
         email: result.user.email,
         photoURL: result.user.photoURL,

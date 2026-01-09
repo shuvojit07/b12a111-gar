@@ -11,7 +11,7 @@ const PaymentPage = () => {
 
   // 🔹 Load order
   useEffect(() => {
-    fetch(`http://localhost:5000/api/v1/orders/${orderId}`)
+    fetch(`https://garmentstracker.vercel.app/api/v1/orders/${orderId}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Order not found");
@@ -32,7 +32,7 @@ const PaymentPage = () => {
   const handlePayment = async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/v1/stripe/create-session",
+        "https://garmentstracker.vercel.app/api/v1/stripe/create-session",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

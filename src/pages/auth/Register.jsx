@@ -35,7 +35,7 @@ const Register = () => {
       await createUser(email, password);
 
       try {
-        await axios.post("http://localhost:5000/api/v1/users", {
+        await axios.post("https://garmentstracker.vercel.app/api/v1/users", {
           name,
           email,
           photoURL,
@@ -58,7 +58,7 @@ const Register = () => {
       const user = result.user;
 
       try {
-        await axios.post("http://localhost:5000/api/v1/users", {
+        await axios.post("https://garmentstracker.vercel.app/api/v1/users", {
           name: user.displayName,
           email: user.email,
           photoURL: user.photoURL,

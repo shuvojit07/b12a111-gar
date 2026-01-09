@@ -8,11 +8,11 @@ const ProductGallerySlider = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const IMAGES_PER_SLIDE = 9;
-  const SHOW_TIME = 5000;       // 5 sec fully visible
+  const SHOW_TIME = 5000; // 5 sec fully visible
   const TRANSITION_TIME = 3000; // 3 sec animation
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/products")
+    fetch("https://garmentstracker.vercel.app/api/v1/products")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
@@ -29,9 +29,8 @@ const ProductGallerySlider = () => {
       setIsTransitioning(true);
 
       let transitionTimer = setTimeout(() => {
-        setPage((prev) =>
-          (prev + 1) %
-          Math.ceil(products.length / IMAGES_PER_SLIDE)
+        setPage(
+          (prev) => (prev + 1) % Math.ceil(products.length / IMAGES_PER_SLIDE)
         );
         setIsTransitioning(false);
       }, TRANSITION_TIME);

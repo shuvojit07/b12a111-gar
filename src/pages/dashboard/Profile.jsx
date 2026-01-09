@@ -11,7 +11,7 @@ const Profile = () => {
     if (!user?.email) return;
 
     axios
-      .get(`http://localhost:5000/api/v1/users/${user.email}`)
+      .get(`https://garmentstracker.vercel.app/api/v1/users/${user.email}`)
       .then((res) => {
         setDbUser(res.data);
         setLoading(false);
@@ -41,7 +41,6 @@ const Profile = () => {
 
       <div className="bg-base-100 shadow-xl rounded-2xl p-8">
         <div className="flex flex-col md:flex-row items-center gap-6">
-          
           {/* ✅ SIMPLE IMAGE (NO DaisyUI avatar) */}
           {profileImage ? (
             <img
@@ -67,9 +66,7 @@ const Profile = () => {
             <p className="text-gray-500">{user?.email}</p>
 
             <div className="flex gap-3 mt-3 justify-center md:justify-start">
-              <span className="badge badge-outline">
-                Role: {dbUser?.role}
-              </span>
+              <span className="badge badge-outline">Role: {dbUser?.role}</span>
               <span className="badge badge-success">
                 Status: {dbUser?.status}
               </span>
@@ -79,10 +76,7 @@ const Profile = () => {
 
         {/* Logout */}
         <div className="mt-6 flex justify-end">
-          <button
-            onClick={logoutUser}
-            className="btn btn-error btn-outline"
-          >
+          <button onClick={logoutUser} className="btn btn-error btn-outline">
             Logout
           </button>
         </div>

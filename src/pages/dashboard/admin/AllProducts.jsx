@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
-
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // 🔹 fetch all products
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/products")
+    fetch("https://garmentstracker.vercel.app/api/v1/products")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
@@ -21,11 +20,14 @@ const AllProducts = () => {
   // 🔹 toggle show on home
   const toggleShowHome = async (id, current) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/v1/products/${id}`, {
-        method: "PATCH",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ showOnHome: !current }),
-      });
+      const res = await fetch(
+        `https://garmentstracker.vercel.app/api/v1/products/${id}`,
+        {
+          method: "PATCH",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ showOnHome: !current }),
+        }
+      );
 
       if (!res.ok) throw new Error();
 
@@ -47,9 +49,12 @@ const AllProducts = () => {
     if (!confirm) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/v1/products/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `https://garmentstracker.vercel.app/api/v1/products/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (!res.ok) throw new Error();
 

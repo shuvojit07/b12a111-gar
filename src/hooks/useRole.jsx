@@ -12,7 +12,7 @@ const useRole = () => {
     if (!user?.email || authLoading) return;
 
     axios
-      .get(`http://localhost:5000/api/v1/users/${user.email}`)
+      .get(`https://garmentstracker.vercel.app/api/v1/users/${user.email}`)
       .then((res) => {
         setRole(res.data.role);
         setStatus(res.data.status);

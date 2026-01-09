@@ -9,7 +9,7 @@ const Hero = () => {
 
   // fetch hero data
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/products")
+    fetch("https://garmentstracker.vercel.app/api/v1/products")
       .then((res) => res.json())
       .then((data) => {
         setHeroes(data);

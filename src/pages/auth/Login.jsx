@@ -31,7 +31,7 @@ const Login = () => {
 
       // backend error should NOT block login
       try {
-        await axios.post("http://localhost:5000/api/v1/users", {
+        await axios.post("https://garmentstracker.vercel.app/api/v1/users", {
           name: user.displayName,
           email: user.email,
           photoURL: user.photoURL,

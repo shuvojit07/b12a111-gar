@@ -12,9 +12,9 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/v1/products/${id}`)
-      .then(res => res.json())
-      .then(data => setProduct(data));
+    fetch(`https://garmentstracker.vercel.app/api/v1/products/${id}`)
+      .then((res) => res.json())
+      .then((data) => setProduct(data));
   }, [id]);
 
   if (!product || loading) {
@@ -42,7 +42,6 @@ const ProductDetails = () => {
   return (
     <section className="bg-gradient-to-b from-white to-slate-50 py-20">
       <div className="max-w-6xl mx-auto px-6">
-
         {/* Back Button */}
         <button
           onClick={() => navigate("/")}
@@ -58,7 +57,6 @@ const ProductDetails = () => {
 
         {/* Card */}
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden grid md:grid-cols-2 gap-10">
-
           {/* Image */}
           <div className="h-[420px] overflow-hidden">
             <img
@@ -81,7 +79,7 @@ const ProductDetails = () => {
             {/* Info */}
             <div className="space-y-2 text-slate-700 mb-8">
               <p>
-                <span className="font-semibold">Price:</span> ৳{product.price}
+                <span className="font-semibold">Price:</span> ${product.price}
               </p>
               <p>
                 <span className="font-semibold">Available Quantity:</span>{" "}
@@ -135,7 +133,6 @@ const ProductDetails = () => {
                 Cancel
               </button>
             </div>
-
           </div>
         </div>
       </div>

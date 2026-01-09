@@ -10,7 +10,7 @@ const TrackOrder = () => {
   useEffect(() => {
     const fetchOrder = () => {
       axios
-        .get(`http://localhost:5000/api/v1/orders/${id}`)
+        .get(`https://garmentstracker.vercel.app/api/v1/orders/${id}`)
         .then((res) => {
           setOrder(res.data);
           setLoading(false);
@@ -32,11 +32,7 @@ const TrackOrder = () => {
   }
 
   if (!order) {
-    return (
-      <p className="text-center mt-20 text-red-500">
-        Order not found
-      </p>
-    );
+    return <p className="text-center mt-20 text-red-500">Order not found</p>;
   }
 
   // 🔹 FIXED LOGIC (unchanged)
@@ -45,7 +41,6 @@ const TrackOrder = () => {
   return (
     <section className="bg-gradient-to-b from-white to-slate-50 py-20">
       <div className="max-w-4xl mx-auto px-6">
-
         <h2 className="text-3xl font-bold mb-10 text-slate-900 text-center">
           Track Your Order
         </h2>
@@ -56,29 +51,22 @@ const TrackOrder = () => {
             {order.productName}
           </h3>
 
-          <p className="text-sm text-slate-500 mb-6">
-            Order ID: {order._id}
-          </p>
+          <p className="text-sm text-slate-500 mb-6">Order ID: {order._id}</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-700">
             <p>
-              <span className="font-semibold">Quantity:</span>{" "}
-              {order.quantity}
+              <span className="font-semibold">Quantity:</span> {order.quantity}
             </p>
             <p>
-              <span className="font-semibold">Total Price:</span>{" "}
-              ${order.totalPrice}
+              <span className="font-semibold">Total Price:</span> $
+              {order.totalPrice}
             </p>
             <p>
               <span className="font-semibold">Payment:</span>{" "}
               {isPaid ? (
-                <span className="text-green-600 font-medium">
-                  Paid
-                </span>
+                <span className="text-green-600 font-medium">Paid</span>
               ) : (
-                <span className="text-red-500 font-medium">
-                  Unpaid
-                </span>
+                <span className="text-red-500 font-medium">Unpaid</span>
               )}
             </p>
             <p>
@@ -142,9 +130,7 @@ const TrackOrder = () => {
                 </div>
                 <p
                   className={`text-sm font-medium ${
-                    step.active
-                      ? "text-slate-900"
-                      : "text-slate-500"
+                    step.active ? "text-slate-900" : "text-slate-500"
                   }`}
                 >
                   {step.label}

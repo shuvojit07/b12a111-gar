@@ -7,8 +7,11 @@ const PaymentSuccess = () => {
   const { orderId } = useParams();
 
   useEffect(() => {
+    if (!orderId) return;
+
     axios
-      .patch(`http://localhost:5000/api/v1/orders/pay/${orderId}`)
+      .patch(`${import.meta.env.VITE_API_URL}/api/v1/orders/pay/${orderId}`)
+
       .then(() => {
         toast.success("Payment successful!");
       })
@@ -19,10 +22,10 @@ const PaymentSuccess = () => {
 
   return (
     <div className="text-center mt-32">
-      <h2 className="text-2xl font-bold text-green-600">
-        Payment Successful 
-      </h2 >
-      <h3 className="text-xl font-bold text-green-600">Thanks For Your Payment</h3>
+      <h2 className="text-2xl font-bold text-green-600">Payment Successful</h2>
+      <h3 className="text-xl font-bold text-green-600">
+        Thanks For Your Payment
+      </h3>
 
       <p className="mt-2 text-gray-600">Your order has been confirmed.</p>
 

@@ -14,7 +14,9 @@ const ManageProducts = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:5000/api/v1/products?manager=${user.email}`)
+    fetch(
+      `https://garmentstracker.vercel.app/api/v1/products?manager=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
@@ -32,22 +34,20 @@ const ManageProducts = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/v1/products/${id}`,
+        `https://garmentstracker.vercel.app/api/v1/products/${id}`,
         { method: "DELETE" }
       );
 
       if (!res.ok) throw new Error();
 
       toast.success("Product deleted");
-      setProducts((prev) =>
-        prev.filter((p) => p._id !== id)
-      );
+      setProducts((prev) => prev.filter((p) => p._id !== id));
     } catch {
       toast.error("Delete failed");
     }
   };
 
-  // 🔍 search filter
+  //  search filter
   const filteredProducts = products.filter(
     (p) =>
       p.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -56,17 +56,13 @@ const ManageProducts = () => {
 
   if (loading) {
     return (
-      <p className="text-center mt-20 text-gray-500">
-        Loading products...
-      </p>
+      <p className="text-center mt-20 text-gray-500">Loading products...</p>
     );
   }
 
   return (
     <div className="px-4 py-6">
-      <h2 className="text-2xl font-bold mb-6">
-        Manage Products
-      </h2>
+      <h2 className="text-2xl font-bold mb-6">Manage Products</h2>
 
       {/* Search */}
       <input
@@ -100,10 +96,7 @@ const ManageProducts = () => {
 
           <tbody>
             {filteredProducts.map((product, index) => (
-              <tr
-                key={product._id}
-                className="border-t hover:bg-slate-50"
-              >
+              <tr key={product._id} className="border-t hover:bg-slate-50">
                 <td className="p-3">{index + 1}</td>
 
                 <td className="p-3">
@@ -112,19 +105,14 @@ const ManageProducts = () => {
                     alt={product.name}
                     className="w-12 h-12 object-cover rounded-md"
                     onError={(e) =>
-                      (e.target.src =
-                        "https://placehold.co/100x100")
+                      (e.target.src = "https://placehold.co/100x100")
                     }
                   />
                 </td>
 
-                <td className="p-3 font-medium">
-                  {product.name}
-                </td>
+                <td className="p-3 font-medium">{product.name}</td>
 
-                <td className="p-3">
-                  ৳{product.price}
-                </td>
+                <td className="p-3">${product.price}</td>
 
                 <td className="p-3">
                   {product.paymentType === "cod"
@@ -150,9 +138,7 @@ const ManageProducts = () => {
                   </Link>
 
                   <button
-                    onClick={() =>
-                      handleDelete(product._id)
-                    }
+                    onClick={() => handleDelete(product._id)}
                     className="
                       inline-block
                       px-3 py-1.5
@@ -173,9 +159,7 @@ const ManageProducts = () => {
         </table>
 
         {filteredProducts.length === 0 && (
-          <p className="text-center mt-6 text-gray-500">
-            No products found.
-          </p>
+          <p className="text-center mt-6 text-gray-500">No products found.</p>
         )}
       </div>
     </div>
